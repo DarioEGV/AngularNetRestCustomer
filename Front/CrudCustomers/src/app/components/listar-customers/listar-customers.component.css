@@ -1,0 +1,24 @@
+.title{
+background-color: rgb(51, 51, 51);
+padding: 30px;
+text-align: center;
+color: white;
+}
+
+.container{
+margin:0 15%;
+}
+
+table {
+    width: 100%;
+  }
+  
+td,th{
+    width: 15%;
+}  
+
+.mat-mdc-form-field {
+  margin-top: 10px;
+  font-size: 14px;
+  width: 100%;
+}
