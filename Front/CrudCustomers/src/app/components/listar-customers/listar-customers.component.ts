@@ -1,11 +1,14 @@
 import {AfterViewInit, Component, ViewChild} from '@angular/core';
-import {MatTableDataSource, MatTableModule} from '@angular/material/table';
-import {MatPaginator, MatPaginatorModule} from '@angular/material/paginator';
-import { MatSort, MatSortModule} from "@angular/material/sort";
-import {MatInputModule} from '@angular/material/input';
-import {MatFormFieldModule} from '@angular/material/form-field';
+
+import {MatTableDataSource} from '@angular/material/table';
+import {MatPaginator} from '@angular/material/paginator';
+import {MatSort} from "@angular/material/sort";
 
 import { Customers } from '../../interfaces/Customers';
+import { SharedModule } from '../../shared/shared/shared.module';
+
+
+
 
 const Customers_List: Customers[] = [
   
@@ -25,12 +28,12 @@ const Customers_List: Customers[] = [
 @Component({
   selector: 'app-listar-customers',
   standalone: true,
-  imports: [MatTableModule,MatPaginatorModule,MatSortModule,MatFormFieldModule,MatInputModule],
+  imports: [SharedModule],
   templateUrl: './listar-customers.component.html',
   styleUrl: './listar-customers.component.css'
 })
 export class ListarCustomersComponent implements AfterViewInit {
-  displayedColumns: string[] = ['CustomerID', 'FirstName', 'LastName', 'Email','Phone','Address','CustomerType'];
+  displayedColumns: string[] = ['CustomerID', 'FirstName', 'LastName', 'Email','Phone','Address','CustomerType','Acciones'];
   dataSource = new MatTableDataSource<Customers>(Customers_List);
   
   @ViewChild(MatPaginator) paginator!: MatPaginator;

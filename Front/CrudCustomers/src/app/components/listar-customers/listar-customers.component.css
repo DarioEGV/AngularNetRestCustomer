@@ -6,7 +6,7 @@ color: white;
 }
 
 .container{
-margin:0 15%;
+margin:0 10%;
 }
 
 table {
@@ -14,11 +14,29 @@ table {
   }
   
 td,th{
-    width: 15%;
+    width: 10%;
 }  
 
 .mat-mdc-form-field {
   margin-top: 10px;
   font-size: 14px;
   width: 100%;
+}
+
+.delete{
+  cursor:pointer;
+  color:#e15639;
+}
+.edit{
+  cursor:pointer;
+  color:#644bf0;
+}
+.search{
+  cursor:pointer;
+  color:#41a727;
+}
+
+.aceptar{
+  font-size: 12px;
+  line-height: 28;
 }
