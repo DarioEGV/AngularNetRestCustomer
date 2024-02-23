@@ -1,1 +1,64 @@
-<p>agregar-editar-customers works!</p>
+<div class="title">
+    <h1>Agregar Cliente</h1>
+</div>
+@if(loading){
+<app-spinner></app-spinner>
+}
+<div class="container">
+    <mat-card class="card">
+        <mat-card-subtitle>
+            Datos del Cliente
+        </mat-card-subtitle>
+        <form [formGroup]="form" (ngSubmit)="agregarCliente()">
+            <mat-grid-list cols="2" rowHeight="80px">
+                <mat-grid-tile>
+                    <mat-form-field appearance="outline">
+                        <mat-label>Nombre</mat-label>
+                        <input formControlName="nombre" matInput autocomplete="off">
+                    </mat-form-field>
+                </mat-grid-tile>
+                <mat-grid-tile>
+                    <mat-form-field appearance="outline">
+                        <mat-label>Apellido</mat-label>
+                        <input formControlName="apellido" matInput autocomplete="off">
+                    </mat-form-field>
+                </mat-grid-tile>
+                <mat-grid-tile>
+                    <mat-form-field appearance="outline">
+                        <mat-label>Email</mat-label>
+                        <input formControlName="email" matInput autocomplete="off" mask="A*@A*.SSS" [validation]="true"
+                            [dropSpecialCharacters]="false">
+                    </mat-form-field>
+                </mat-grid-tile>
+                <mat-grid-tile>
+                    <mat-form-field appearance="outline">
+                        <mat-label>Telefono</mat-label>
+                        <input formControlName="telefono" matInput autocomplete="off" mask="(000) 000 000">
+                    </mat-form-field>
+                </mat-grid-tile>
+                <mat-grid-tile>
+                    <mat-form-field appearance="outline">
+                        <mat-label>Direccion</mat-label>
+                        <input formControlName="direccion" matInput autocomplete="off">
+                    </mat-form-field>
+                </mat-grid-tile>
+                <mat-grid-tile>
+                    <mat-form-field>
+                        <mat-label>Tipo de cliente</mat-label>
+                        <mat-select formControlName="tipoCliente">
+                            <mat-option value="1">Regular</mat-option>
+                            <mat-option value="2">VIP</mat-option>
+                            <mat-option value="3">Premium</mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                </mat-grid-tile>
+                <mat-grid-tile>
+                    <button [disabled]="form.invalid"  type="submit" mat-flat-button color="Link">Aceptar</button>
+                </mat-grid-tile>
+                <mat-grid-tile>
+                    <button mat-flat-button color="Link" routerLink="/listCustomers">Volver</button>
+                </mat-grid-tile>
+            </mat-grid-list>
+        </form>
+    </mat-card>
+</div>

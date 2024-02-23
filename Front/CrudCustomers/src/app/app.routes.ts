@@ -5,7 +5,10 @@ import { AgregarEditarCustomersComponent } from './components/agregar-editar-cus
 import { VerCustomersComponent } from './components/ver-customers/ver-customers.component';
 
 export const routes: Routes = [
+    {path:'',redirectTo:'listCustomers',pathMatch:'full'},
     {path:'listCustomers',component:ListarCustomersComponent},
     {path:'addCustomers',component:AgregarEditarCustomersComponent},
-    {path:'viewCustomers',component:VerCustomersComponent}
+    {path:'viewCustomers/:id',component:VerCustomersComponent},
+    {path:'editCustomers/:id',component:AgregarEditarCustomersComponent},
+    {path:'**',redirectTo:'listCustomers',pathMatch:'full'},
 ];

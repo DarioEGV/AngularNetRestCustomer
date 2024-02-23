@@ -1,5 +1,6 @@
 import {AfterViewInit, Component, ViewChild} from '@angular/core';
 
+import {MatSnackBar} from '@angular/material/snack-bar';
 import {MatTableDataSource} from '@angular/material/table';
 import {MatPaginator} from '@angular/material/paginator';
 import {MatSort} from "@angular/material/sort";
@@ -35,10 +36,15 @@ const Customers_List: Customers[] = [
 export class ListarCustomersComponent implements AfterViewInit {
   displayedColumns: string[] = ['CustomerID', 'FirstName', 'LastName', 'Email','Phone','Address','CustomerType','Acciones'];
   dataSource = new MatTableDataSource<Customers>(Customers_List);
-  
+  loading: boolean= false;
+
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
   
+constructor(private _snackBar: MatSnackBar){
+
+}
+
   ngAfterViewInit() {
     this.dataSource.paginator = this.paginator;
     this.dataSource.sort = this.sort;
@@ -53,5 +59,12 @@ export class ListarCustomersComponent implements AfterViewInit {
       this.dataSource.paginator.firstPage();
     }
   }
-
+  deleteCustomer(){
+    this.loading=true;
+    setTimeout(() => {
+      this.loading=false;
+      this._snackBar.open("El cliente fue eliminado con exito","",{duration:4000}); 
+    }, 2000);
+    
+  }
 }
