@@ -19,17 +19,19 @@ import { SpinnerComponent } from '../spinner/spinner.component';
 import { RouterLink } from '@angular/router';
 import { NgxMaskDirective } from 'ngx-mask';
 import { ReactiveFormsModule } from '@angular/forms';
+import { HttpClientModule } from '@angular/common/http';
 
 
 @NgModule({
   declarations: [],
   imports: [
-    CommonModule,MatTableModule,MatPaginatorModule,MatSortModule,MatFormFieldModule,MatInputModule,MatIconModule,MatTooltipModule,MatButtonModule,RouterLink,MatSnackBarModule,SpinnerComponent,MatGridListModule,NgxMaskDirective,MatSelectModule,ReactiveFormsModule
+    CommonModule,MatTableModule,MatPaginatorModule,MatSortModule,MatFormFieldModule,MatInputModule,MatIconModule,MatTooltipModule,MatButtonModule,RouterLink,MatSnackBarModule,SpinnerComponent,MatGridListModule,NgxMaskDirective,MatSelectModule,ReactiveFormsModule,HttpClientModule
   ],
   exports: [
-    MatTableModule,MatPaginatorModule,MatSortModule,MatFormFieldModule,MatInputModule,MatIconModule,MatTooltipModule,MatButtonModule,MatCardModule,RouterLink,MatSnackBarModule,SpinnerComponent,MatGridListModule,NgxMaskDirective,MatSelectModule,ReactiveFormsModule
+    MatTableModule,MatPaginatorModule,MatSortModule,MatFormFieldModule,MatInputModule,MatIconModule,MatTooltipModule,MatButtonModule,MatCardModule,RouterLink,MatSnackBarModule,SpinnerComponent,MatGridListModule,NgxMaskDirective,MatSelectModule,ReactiveFormsModule,HttpClientModule
   ]
 })
 export class SharedModule { 
-
+  endpoint: string= "https://localhost:7204/";
 }
+

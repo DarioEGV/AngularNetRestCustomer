@@ -1,18 +1,18 @@
 <div class="title">
     <h1>Ver Cliente</h1>
-</div>
+</div>@if (loading) {<app-spinner></app-spinner>}
 
 <div class="container">
     <mat-card class="card">
         <mat-card-title>Dario</mat-card-title> 
             <mat-card-content>
-               <p><strong>ID:</strong> 1 </p>
-               <p><strong>Nombre:</strong> Dario </p>
-               <p><strong>Apellido:</strong> Gerez </p>
-               <p><strong>Email:</strong> gerezdario </p>
-               <p><strong>Telefono:</strong> 123456744 </p>
-               <p><strong>Direccion:</strong> tucuman 894 </p>
-               <p><strong>Tipo de Cliente:</strong> Premium </p>
+               <p><strong>ID:</strong> {{customer?.customerId}} </p>
+               <p><strong>Nombre:</strong> {{customer?.firstName}} </p>
+               <p><strong>Apellido:</strong> {{customer?.lastName}} </p>
+               <p><strong>Email:</strong> {{customer?.email}} </p>
+               <p><strong>Telefono:</strong> {{customer?.phone}} </p>
+               <p><strong>Direccion:</strong> {{customer?.address}} </p>
+               <p><strong>Tipo de Cliente:</strong> {{customer?.customerType?.typeName}} </p>
             </mat-card-content>    
             <mat-card-actions>
                 <button routerLink="/listCustomers" mat-stroked-button>Volver</button>

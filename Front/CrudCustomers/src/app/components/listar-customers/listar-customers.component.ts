@@ -1,31 +1,16 @@
-import {AfterViewInit, Component, ViewChild} from '@angular/core';
+import {AfterViewInit, Component, ViewChild,OnInit} from '@angular/core';
 
 import {MatSnackBar} from '@angular/material/snack-bar';
 import {MatTableDataSource} from '@angular/material/table';
 import {MatPaginator} from '@angular/material/paginator';
 import {MatSort} from "@angular/material/sort";
 
-import { Customers } from '../../interfaces/Customers';
+import { Customer,CustomerType ,responseGET} from '../../interfaces/Customers';
 import { SharedModule } from '../../shared/shared/shared.module';
+import { CustomersService } from '../../services/customers.service';
+import {DataSource} from '@angular/cdk/collections';
 
-
-
-
-const Customers_List: Customers[] = [
   
-{CustomerID:1,FirstName:"Dario",LastName:"Gerez",Email:"gerezdario@gmail.com",Phone:"152984722",Address:"tucuman 854",CustomerType:"Premium"},
-{CustomerID:2,FirstName:"Emilia",LastName:"Pintos",Email:"EmiPintos@gmail.com",Phone:"178346722",Address:"salta 069",CustomerType:"VIP"},
-{CustomerID:3,FirstName:"Julio",LastName:"Giana",Email:"JulioGiana@gmail.com",Phone:"163498277",Address:"bs as 153",CustomerType:"Regular"},
-{CustomerID:4,FirstName:"Sergio",LastName:"Velazquez",Email:"sergioVelazquez@gmail.com",Phone:"156782366",Address:"colombia 12",CustomerType:"VIP"},
-{CustomerID:5,FirstName:"Maria",LastName:"Berna",Email:"mariaberna@gmail.com",Phone:"157893055",Address:"rosario 54",CustomerType:"VIP"},
-{CustomerID:6,FirstName:"Murcio",LastName:"Dominguez",Email:"Murcio@gmail.com",Phone:"189372677",Address:"metan 674",CustomerType:"Regular"},
-{CustomerID:7,FirstName:"Juana",LastName:"Bustamante",Email:"Juana@gmail.com",Phone:"153487209",Address:"tafi viejo 327",CustomerType:"Premium"},
-{CustomerID:8,FirstName:"Marta",LastName:"Gonzales",Email:"Marta@gmail.com",Phone:"152873644",Address:"chubut 890",CustomerType:"VIP"},
-{CustomerID:9,FirstName:"Leo",LastName:"Roquez",Email:"Leo@gmail.com",Phone:"156398743",Address:"peru 235",CustomerType:"Premium"},
-{CustomerID:10,FirstName:"Gustavo",LastName:"Perez",Email:"Gustavo@gmail.com",Phone:"167349388",Address:"brasil 231",CustomerType:"Regular"},
-
-];
-
 @Component({
   selector: 'app-listar-customers',
   standalone: true,
@@ -33,22 +18,50 @@ const Customers_List: Customers[] = [
   templateUrl: './listar-customers.component.html',
   styleUrl: './listar-customers.component.css'
 })
-export class ListarCustomersComponent implements AfterViewInit {
-  displayedColumns: string[] = ['CustomerID', 'FirstName', 'LastName', 'Email','Phone','Address','CustomerType','Acciones'];
-  dataSource = new MatTableDataSource<Customers>(Customers_List);
-  loading: boolean= false;
 
+
+export class ListarCustomersComponent implements AfterViewInit {
+  
+  data?:responseGET;
+
+  displayedColumns: string[] = ['CustomerID', 'FirstName', 'LastName', 'Email','Phone','Address','CustomerType','Acciones'];
+  dataSource = new MatTableDataSource<Customer>();
+  loading: boolean= true;
+  
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
   
-constructor(private _snackBar: MatSnackBar){
+constructor(private _snackBar: MatSnackBar,private _customerService:CustomersService){
 
+}
+ngOnInit():void{
+  this.getCustomers();
+ 
+}
+
+getCustomers(){
+  this._customerService.getCustomersResponse().subscribe({
+  next:(result)=>{
+    this.data=result;
+    this.dataSource.data = this.data.response;
+     //console.log(this.data.response);  
+}  ,
+  error:(err)=>{
+    console.log(err);
+  },
+  complete:()=>{
+    
+    this.loading= false;
+  }
+  });
 }
 
   ngAfterViewInit() {
     this.dataSource.paginator = this.paginator;
     this.dataSource.sort = this.sort;
+    if(this.dataSource.data.length>0){
     this.paginator._intl.itemsPerPageLabel="Items por pagina";
+  }
   }
 
   applyFilter(event: Event) {
@@ -59,12 +72,19 @@ constructor(private _snackBar: MatSnackBar){
       this.dataSource.paginator.firstPage();
     }
   }
-  deleteCustomer(){
-    this.loading=true;
-    setTimeout(() => {
-      this.loading=false;
-      this._snackBar.open("El cliente fue eliminado con exito","",{duration:4000}); 
-    }, 2000);
-    
+  deleteCustomer(id:number){
+      this.loading=true;
+      this._customerService.deleteCustomer(id).subscribe(()=>{
+      this.mensajeExito();
+      this.loading=false; 
+      this.getCustomers();
+      });
+     // setTimeout(() => {  this.loading=false; }, 2000);
   }
+
+  mensajeExito(){
+    this._snackBar.open("El cliente fue eliminado con exito","",{duration:4000}); 
+  }
+      
+
 }

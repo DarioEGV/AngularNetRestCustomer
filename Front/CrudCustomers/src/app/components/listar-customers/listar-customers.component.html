@@ -6,55 +6,56 @@
     <mat-label>Filtrar</mat-label>
     <input matInput (keyup)="applyFilter($event)" placeholder="Buscar" #input autocomplete="off">
   </mat-form-field>
+
 <table mat-table [dataSource]="dataSource" class="mat-elevation-z5" matSort>
    
 
     <ng-container matColumnDef="CustomerID" >
       <th mat-header-cell *matHeaderCellDef mat-sort-header> ID </th>
-      <td mat-cell *matCellDef="let element"> {{element.CustomerID}} </td>
+      <td mat-cell *matCellDef="let element"> {{element.customerId}} </td>
     </ng-container>
   
 
     <ng-container matColumnDef="FirstName">
       <th mat-header-cell *matHeaderCellDef mat-sort-header> Nombre </th>
-      <td mat-cell *matCellDef="let element"> {{element.FirstName}} </td>
+      <td mat-cell *matCellDef="let element"> {{element.firstName}} </td>
     </ng-container>
   
 
     <ng-container matColumnDef="LastName">
       <th mat-header-cell *matHeaderCellDef mat-sort-header> Apellido </th>
-      <td mat-cell *matCellDef="let element"> {{element.LastName}} </td>
+      <td mat-cell *matCellDef="let element"> {{element.lastName}} </td>
     </ng-container>
   
 
     <ng-container matColumnDef="Email">
       <th mat-header-cell *matHeaderCellDef mat-sort-header> Email </th>
-      <td mat-cell *matCellDef="let element"> {{element.Email}} </td>
+      <td mat-cell *matCellDef="let element"> {{element.email}} </td>
     </ng-container>
   
     <ng-container matColumnDef="Address">
         <th mat-header-cell *matHeaderCellDef mat-sort-header> Direccion </th>
-        <td mat-cell *matCellDef="let element"> {{element.Address}} </td>
+        <td mat-cell *matCellDef="let element"> {{element.address}} </td>
       </ng-container>
 
       <ng-container matColumnDef="Phone">
         <th mat-header-cell *matHeaderCellDef mat-sort-header> Telefono </th>
-        <td mat-cell *matCellDef="let element"> {{element.Phone}} </td>
+        <td mat-cell *matCellDef="let element"> {{element.phone}} </td>
       </ng-container>
 
       <ng-container matColumnDef="CustomerType">
         <th mat-header-cell *matHeaderCellDef mat-sort-header> Tipo </th>
-        <td mat-cell *matCellDef="let element"> {{element.CustomerType}} </td>
+        <td mat-cell *matCellDef="let element"> {{element.customerType.typeName}} </td>
       </ng-container>
     
       <ng-container matColumnDef="Acciones">
         <th mat-header-cell *matHeaderCellDef> 
-          <button routerLink='/addCustomers' class="agregar" mat-raised-button color="primary">Aceptar</button>
+          <button routerLink='/addCustomers' class="agregar" mat-raised-button color="primary">Nuevo</button>
         </th>
         <td mat-cell *matCellDef="let element">
-          <mat-icon routerLink='/viewCustomers/1' class="search" matTooltip="Ver" aria-hidden="false" aria-label="Example home icon" fontIcon="search"></mat-icon>
-          <mat-icon routerLink='/editCustomers/1' class="edit" matTooltip="Editar" aria-hidden="false" aria-label="Example home icon" fontIcon="edit"></mat-icon>
-          <mat-icon (click)="deleteCustomer()" class="delete" matTooltip="Eliminar" aria-hidden="false" aria-label="Example home icon" fontIcon="delete"></mat-icon>
+          <mat-icon routerLink='/viewCustomers/{{element.customerId}}' class="search" matTooltip="Ver" aria-hidden="false" aria-label="Example home icon" fontIcon="search"></mat-icon>
+          <mat-icon routerLink='/editCustomers/{{element.customerId}}' class="edit" matTooltip="Editar" aria-hidden="false" aria-label="Example home icon" fontIcon="edit"></mat-icon>
+          <mat-icon (click)="deleteCustomer(element.customerId)" class="delete" matTooltip="Eliminar" aria-hidden="false" aria-label="Example home icon" fontIcon="delete"></mat-icon>
 
           </td>
       </ng-container>
